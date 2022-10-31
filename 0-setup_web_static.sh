@@ -15,7 +15,7 @@ fi
 
 ln -s /data/web_static/releases/test/ $LINK
 
-#chown ubuntu -R /data && chgrp ubuntu -R /data
+chown ubuntu -R /data && chgrp ubuntu -R /data
 echo > -e 'events {
 }
 
