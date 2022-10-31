@@ -25,8 +25,8 @@ http {
                 root /var/www/alx/html;
                 index index.html;
 
-                location \ {
-
+                location /hbnb_static {
+			root /data/web_static/current
                 }
         }
 
