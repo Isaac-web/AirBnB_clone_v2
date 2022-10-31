@@ -20,3 +20,4 @@ sed -i ,root /var/www/school, root /data/web_static/current/, /etc/nginx/nginx/c
 
 systemclt restart nginx
 
+exit 0
