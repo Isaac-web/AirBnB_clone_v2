@@ -1,39 +1,16 @@
 #!/usr/bin/env bash
-#preparing the web servers for deployment
-
-mkdir -p /data/web_static/releases/
-mkdir -p /data/web_static/shared/
-mkdir -p /data/web_static/releases/test/
-echo "Web server is working..." > /data/web_static/releases/test/index.html
-
-#create the link
-LINK=/data/web_static/current
-if [ -L $LINK ]
-then
-	rm -f $LINK
-fi
-
-ln -s /data/web_static/releases/test/ $LINK
-
-chown ubuntu -R /data && chgrp ubuntu -R /data
-echo > -e 'events {
-}
-
-http {
-        server {
-                listen 80;
-                root /var/www/alx/html;
-                index index.html;
-
-                location /hbnb_static {
-			root /data/web_static/current
-                }
-        }
-
-}
-
-' >  /etc/nginx/nginx.conf
-
-systemctl restart nginx
-
-exit 0
+# sets up your web servers for the deployment of web_static.
+sudo apt-get update
+sudo apt-get -y install nginx
+sudo mkdir -p /data/web_static/shared/ /data/web_static/releases/test/
+sudo echo "<html>
+  <head>
+  </head>
+  <body>
+	Holberton School
+  </body>
+</html>" | sudo tee /data/web_static/releases/test/index.html
+sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
+sudo chown -R ubuntu:ubuntu /data
+sudo sed -i '53i \\tlocation \/hbnb_static {\n\t\t alias /data/web_static/current;\n\t}' /etc/nginx/sites-available/default
+/etc/init.d/nginx restart
