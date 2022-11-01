@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from fabric.api import *
+from datetime import datetime
 
 
 def do_pack():
@@ -8,23 +9,12 @@ def do_pack():
     Zip all the file in the web static
     folder into a single file
     """
-
-    #make a path for versions
     local("mkdir -p versions")
+    timestamp = datetime.now().strftime("%Y%m%d%H%M%S")
+    file_path = "versions/web_static_{}.tgz".format(timestamp)
+    zipped = local("tar -cfvz {} web_static".format(file_path))
 
-    #create a path for the tar file tobe created
-    timestamp = datetime.now().strfstring("%Y%m%d%H%M%S")
-    path = "versions/web_static_{}".format(timestamp)
-
-    
-    zip_archive = local("tar -cfuz {} web_static".format(path))
-
-    if zip_archive.succedded:
-        return path
+    if zipped.succeeded:
+        return file_path
     else:
         return None
-    
-
-
-
-
