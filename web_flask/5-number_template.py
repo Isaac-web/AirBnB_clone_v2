@@ -43,6 +43,7 @@ def number(n):
 
 @app.route("/number_template/<int:n>")
 def number_page(n):
+    """Returns an html page with the number provided"""
     return render_template("5-number.html", number=n)
 
 
