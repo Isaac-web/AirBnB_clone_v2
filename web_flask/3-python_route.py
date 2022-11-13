@@ -1,4 +1,4 @@
-from flask import Flask
+#!/usr/bin/python3
 """
 A simple flask application
 """
@@ -28,10 +28,11 @@ def c_text(text):
 
 @app.route("/python")
 @app.route("/python/")
-@app.route("/python/<text>")
-def python_is_cool(text="is cool"):
-    """Returns 'Python' followed by the text provided"""
-    return "Python {}".format(text.replace("_", " "))
+@app.route("/python/<text>", strict_slashes=False)
+def python_text(text="is cool"):
+    """Returns the text provided"""
+    text = text.replace("_", " ")
+    return "Python {}".format(text)
 
 
 if __name__ == "__main__":
