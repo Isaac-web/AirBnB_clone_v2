@@ -1,14 +1,15 @@
 #!/usr/bin/python3
 """
-A minimum flask app
+A simple flask application
 """
 from flask import Flask
 
-
 app = Flask(__name__)
+
+
 @app.route("/")
 def index():
-    """This route returns a Hello World page"""
+    """This route returns hello HBNB"""
     return "Hello HBNB!"
 
 
