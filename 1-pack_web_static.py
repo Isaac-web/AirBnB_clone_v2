@@ -19,3 +19,17 @@ def do_pack():
         return file_path
     else:
         return None
+
+
+def do_deploy(archive_path):
+    """
+        Transfer the archive to the server
+    """
+    if not archive_path:
+        return False
+
+    put(local_path=archive_path, remote_path="/tmp")
+    run("tar -xfv /tmp/{} /data/web_static/release/".format(archive_path))
+    sudo("rm -f /tmp/{}".format(archive_path))
+    sudo("rm -f /data/web_static/current")
+    run("ln -sf /data/web_static/current ")
